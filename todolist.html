@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>To-Do-List with React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+      body{
+        text-align: center;
+      }
+      h1{
+        font-size: 72px;
+        color: Red;
+      }
+      input{
+        width: 300px;
+        height: 30px;
+        font-size: 24px;
+      }
+      button{
+        height: 40px;
+        width: 100px;
+        color: black;
+        background-color: white;
+      }
+      ul{
+        display: inline-block;
+      }
+      li{
+        color: Black;
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      class App extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            tasks: [],
+            input: ""
+          };
+        }
+
+        render() {
+          return (
+            <div>
+              <h1>Tasks</h1>
+              <ul>
+                {this.state.tasks.map((task,i) => <li key={i}>{task}</li>)}
+              </ul>
+              <div>
+                <input onChange={this.handleChange} value={this.state.input}/>
+                <button onClick={this.addTask}>Add Task</button>
+              </div>
+            </div>
+          );
+        }
+
+        handleChange = (event) => {
+          this.setState({
+            input: event.target.value
+          });
+        }
+
+        addTask = () => {
+          this.setState(state => ({
+            tasks: [...state.tasks, state.input]
+          }))
+        }
+      }
+
+      ReactDOM.render(<App />, document.querySelector("#app"));
+
+
+    </script>
+
+  </body>
+</html>
